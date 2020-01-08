@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "firstName": "asdasfd",
+      "lastName": "asdasdf",
+      "email": "sgupta",
+      "password": "welcome1",
+      "confirm_password": "123456",
+      "address": "adasfsfds",
+      "contact_number": "123456",
+      "id": 1
+    },
+    {
+      "firstName": "HIMA",
+      "lastName": "KONGARA",
+      "email": "binduk0919@gmail.com",
+      "password": "k$ongara19",
+      "confirm_password": "k$ongara19",
+      "address": "NYC",
+      "contact_number": "8329461232",
+      "id": 2
+    }
+  ]
+}

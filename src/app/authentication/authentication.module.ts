@@ -5,6 +5,7 @@ import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { AuthenticationRoutes } from './authentication.routing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationService } from './service/authentication.service';
 
 
 
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule.forChild(AuthenticationRoutes)
 
   ],
+  providers:[AuthenticationService],
   exports:[]
 })
 export class AuthenticationModule { }

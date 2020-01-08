@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,14 +16,18 @@ export class SignupComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
+      private authenticationService:AuthenticationService
       ) { }
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
           firstName: ['', Validators.required],
           lastName: ['', Validators.required],
-          username: ['', Validators.required],
-          password: ['', [Validators.required, Validators.minLength(6)]]
+          email: ['', Validators.required],
+          password: ['', [Validators.required, Validators.minLength(6)]],
+          confirm_password: ['', [Validators.required, Validators.minLength(6)]],
+          address: ['', Validators.required],
+          contact_number: ['', Validators.required], 
       });
   }
 
@@ -38,16 +43,13 @@ export class SignupComponent implements OnInit {
       }
 
       this.loading = true;
-      // this.userService.register(this.registerForm.value)
-      //     .pipe(first())
-      //     .subscribe(
-      //         data => {
-      //             this.alertService.success('Registration successful', true);
-      //             this.router.navigate(['/login']);
-      //         },
-      //         error => {
-      //             this.alertService.error(error);
-      //             this.loading = false;
-      //         });
+      this.authenticationService.register(this.registerForm.value)
+          .subscribe(
+              data => {
+                  this.router.navigate(['/auth/login']);
+              },
+              error => {
+                  this.loading = false;
+              });
   }
 }

@@ -5,7 +5,9 @@ import { SignupComponent } from './authentication/signup/signup.component';
 
 
 const appRoutes: Routes = [
-  { path: '', loadChildren: () => import(`./authentication/authentication.module`).then(m => m.AuthenticationModule) },
+  {path:'',redirectTo:'/auth/login',pathMatch:'full'},
+  { path: 'auth', loadChildren: () => import(`./authentication/authentication.module`).then(m => m.AuthenticationModule) },
+  { path: 'task', loadChildren: () => import(`./task/task.module`).then(m => m.TaskModule) },
 ];
 
 @NgModule({

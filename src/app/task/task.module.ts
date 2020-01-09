@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskComponent } from './task.component';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 const TaskRoutes: Routes = [
   {
@@ -13,6 +14,7 @@ const TaskRoutes: Routes = [
   declarations: [TaskComponent],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild(TaskRoutes)
   ]
 })

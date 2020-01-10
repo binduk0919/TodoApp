@@ -1,32 +1,41 @@
 <section class="todoapp">
 	<header class="header">
         <h1>todos</h1>
-        <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
-        <div>
-            <input class="new-todo-field" placeholder="Due Date(dd-mm-yyyy)" [(ngModel)]="newTodo.dueDate">
-            <select class="new-todo-field" [(ngModel)]="newTodo.priority">
-                <option value="" selected disabled>Priority</option>
-                <option value="high">High</option>
-                <option value="Medium">Medium</option>
-                <option value="low">Low</option>
-             </select>
-             <a class='btn btn-primary btn-sm add-btn' (click)='addTodo()'>Add</a>
+        <div class="card bg-light mb-3">
+                <div class="card-header">
+                        <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
+                </div>
+                <div class="card-body">
+                  <input class="form-control m-1" placeholder="Due Date(dd-mm-yyyy)" [(ngModel)]="newTodo.dueDate">
+                  <select class="form-control m-1" [(ngModel)]="newTodo.priority">
+                        <option value="" selected disabled>Priority</option>
+                        <option value="high">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <a class='btn btn-primary m-1' style="display: block;" (click)='addTodo()'>Add</a> 
+                </div>
         </div>
-        
-	</header>
+    </header>
 	<section class="main" *ngIf="todoStore.todos.length > 0">
 		<input id="toggle-all" class="toggle-all" type="checkbox" *ngIf="todoStore.todos.length" #toggleall [checked]="todoStore.allCompleted()" (click)="todoStore.setAllTo(toggleall.checked)">
 		<ul class="todo-list">
 			<li *ngFor="let todo of todoStore.todos" [class.completed]="todo.completed" [class.editing]="todo.editing">
-				<div class="view">
-					<input class="toggle" type="checkbox" (click)="toggleCompletion(todo)" [checked]="todo.completed">
-                    <label (dblclick)="editTodo(todo)">{{todo.title}}</label>
-                    <small class="new-todo-field pull-right">Due Date: {{todo.dueDate}}</small>
-                    <small class="new-todo-field pull-right">Priority: {{todo.priority}}</small>    
-					<button class="destroy" (click)="remove(todo)"></button>
-				</div>
-				<input class="edit" *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo.value)" (keyup.enter)="updateEditingTodo(todo, editedtodo.value)" (keyup.escape)="cancelEditingTodo(todo)">
-			</li>
+                    <div class="card mb-3" [ngClass]="{'text-white bg-danger': daysRemaining(todo.dueDate)<0,
+                    'text-white bg-warning': (daysRemaining(todo.dueDate)<1 &&daysRemaining(todo.dueDate)>0),
+                            'text-white bg-info': daysRemaining(todo.dueDate)>1 }">
+                            <div class="card-body">
+                                    <div>   
+                                            <input class='checkbox'type="checkbox" (click)="toggleCompletion(todo)" [checked]="todo.completed">
+                                            <input class="edit m-0" *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo.value)" (keyup.enter)="updateEditingTodo(todo, editedtodo.value)" (keyup.escape)="cancelEditingTodo(todo)">
+                                            <h3 (dblclick)="editTodo(todo)" *ngIf="!todo.editing">{{todo.title}}</h3>
+                                            <p class="card-text">Due Date: {{todo.dueDate}}</p>
+                                            <p class="card-text">Priority: {{todo.priority}}</p>    
+                                            <button class="destroy" (click)="remove(todo)"></button>
+                                    </div>
+                            </div>
+                    </div>
+            </li>
 		</ul>
 	</section>
 	<footer class="footer" *ngIf="todoStore.todos.length > 0">

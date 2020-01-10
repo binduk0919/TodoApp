@@ -56,7 +56,7 @@ export class TaskComponent implements OnInit {
 	}
 
 	addTodo() {
-    if (this.newTodo.title.trim().length) {
+    if (this.isValidTodo()) {
       this.todoStore.add(this.newTodo.title,this.newTodo.dueDate,this.newTodo.priority);
 			this.newTodo = {
         title:'',
@@ -65,5 +65,24 @@ export class TaskComponent implements OnInit {
       };
 		}
 	}
-
+  isValidTodo(){
+    if(this.newTodo.title.trim().length<=0){
+      alert("Please add title of todo");
+      return false;
+    }else if(new Date(this.newTodo.dueDate).toString()==='Invalid Date'){
+      alert("Invalid Due Date"); 
+     return false;
+    }else if(this.newTodo.priority==''){
+      alert("Please selecet a valid priority");
+      return false;
+    }
+    return true;
+  }
+  daysRemaining(date){
+    const date1 = new Date().getTime();
+    const date2 = new Date(date).getTime();
+    const diffTime = (date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays 
+  }
 }

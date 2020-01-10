@@ -4,7 +4,7 @@ import { SignupComponent } from './signup/signup.component';
 
 export const AuthenticationRoutes: Routes = [
   {
-    path: '', 
+    path: '',
     children: [
       {
         path: 'login',
